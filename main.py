@@ -25,8 +25,7 @@ date = dateToday.strftime("%d. %b. %Y")
 def pdf_func():
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
-    # max x position: 210, max y position: 297
-    # window-size: ~57%
+    # Max x position: 210, max y position: 297
     can.setFont('CMU Bright SemiBold', 11)
     can.drawString((21.5 * factor), (171 * factor),
                    f"{'Rechnungs-Nr.: '}{invoiceNumber}")
@@ -37,19 +36,19 @@ def pdf_func():
     can.drawString((39 * factor), (148.6 * factor), 'berechnen wir')
     can.save()
 
-    # move to the beginning of the StringIO buffer
+    # Move to the beginning of the StringIO buffer
     packet.seek(0)
 
-    # create a new PDF with Reportlab
+    # Create a new PDF with Reportlab
     new_pdf = PdfFileReader(packet)
-    # read your existing PDF
+    # Read your existing PDF
     existing_pdf = PdfFileReader(open("Rechnung_WTF.pdf", "rb"))
     output = PdfFileWriter()
-    # add the "watermark" (which is the new pdf) on the existing page
+    # Lay the newly created PDF on top of the existing page
     page = existing_pdf.getPage(0)
     page.mergePage(new_pdf.getPage(0))
     output.addPage(page)
-    # finally, write "output" to a real file
+    # Finally, write "output" to a real file
     outputStream = open(f"{'Rechnungs-Nr. '}{invoiceNumber}{'.pdf'}", 'wb')
     output.write(outputStream)
     outputStream.close()
