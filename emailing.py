@@ -5,10 +5,10 @@ from email.mime.application import MIMEApplication
 
 
 def email_func(number, month, year):
-    senderEmail = os.environ.get('USER')
+    senderEmail = os.environ.get('EMAIL')
     password = os.environ.get('PASSWORD')
-    receiverEmail = ["RECEIVER_EMAIL"] # fill in receiver email address
-    ccEmail = ["CC_EMAIL"] # fill in cc email address
+    receiverEmail = ["info@worldstoughestfireworks.com"] # fill in receiver email address
+    ccEmail = ["heinz.kuennen@gmail.com"] # fill in cc email address
 
 
     # Create a multipart message and set headers
@@ -20,7 +20,7 @@ def email_func(number, month, year):
 
     # Create email body
     emailText = f"""
-    <p>Sehr geehrte Damen und Herren,</p>
+    <p>Hallo Ronny,</p>
     <p>anbei die Rechnung für <b>{month} {year}</b> mit der Bitte um Begleichung.</p>
     <p>Mit freundlichen Grüßen,
     <br> i. A. Hinnerk Künnen</p>
