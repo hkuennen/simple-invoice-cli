@@ -1,33 +1,37 @@
-import smtplib, os
+import os
+import smtplib
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
 
 
 def email_func(number, month, year):
-    senderEmail = os.environ.get('EMAIL')
-    password = os.environ.get('PASSWORD')
-    receiverEmail = ["info@worldstoughestfireworks.com"] # fill in receiver email address
-    ccEmail = ["heinz.kuennen@gmail.com"] # fill in cc email address
-
+    sender_email = os.environ.get("SENDER_EMAIL")
+    receiver_email = [
+        os.environ.get("RECEIVER_EMAIL")
+    ]  # fill in receiver email address
+    cc_email = [os.environ.get("CC_EMAIL")]  # fill in cc email address
+    password = os.environ.get("PWD")
+    sender_name = os.environ.get("SENDER_NAME")
+    receiver_name = os.environ.get("RECEIVER_NAME")
 
     # Create a multipart message and set headers
     msg = MIMEMultipart()
-    msg['From'] = "Hinnerk Künnen"
-    msg['To'] = ", ".join(receiverEmail)
-    msg['Cc'] = ", ".join(ccEmail)
-    msg['Subject'] = f"Rechnung Nr. {number}"
+    msg["From"] = sender_name
+    msg["To"] = ", ".join(receiver_email)
+    msg["Cc"] = ", ".join(cc_email)
+    msg["Subject"] = f"Rechnung Nr. {number}"
 
     # Create email body
     emailText = f"""
-    <p>Hallo Ronny,</p>
+    <p>Hallo {receiver_name},</p>
     <p>anbei die Rechnung für <b>{month} {year}</b> mit der Bitte um Begleichung.</p>
     <p>Mit freundlichen Grüßen,
-    <br> i. A. Hinnerk Künnen</p>
+    <br> i. A. {sender_name}</p>
     """
 
     # Add body to email
-    msg.attach(MIMEText(emailText, 'html'))
+    msg.attach(MIMEText(emailText, "html"))
 
     attach_file_name = f"Rechnungs-Nr. {number}.pdf"
 
@@ -35,8 +39,9 @@ def email_func(number, month, year):
     with open(attach_file_name, "rb") as f:
         attach = MIMEApplication(f.read(), _subtype="pdf")
     # Add header to attachment
-    attach.add_header('Content-Disposition', 'attachment',
-                      filename=str(attach_file_name))
+    attach.add_header(
+        "Content-Disposition", "attachment", filename=str(attach_file_name)
+    )
 
     # Add attachment to message
     msg.attach(attach)
@@ -48,12 +53,10 @@ def email_func(number, month, year):
         # Switch the connection over to TLS encryption
         server.starttls()
         # Authenticate with the server
-        server.login(senderEmail, password)
+        server.login(sender_email, password)
         text = msg.as_string()
         # Send the message
-        server.sendmail(senderEmail,
-                        receiverEmail+ccEmail, 
-                        text)
+        server.sendmail(sender_email, receiver_email + cc_email, text)
         print("Successfully sent email")
 
     except Exception:
