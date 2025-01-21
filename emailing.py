@@ -6,12 +6,12 @@ from email.mime.text import MIMEText
 
 
 def email_func(number, month, year):
-    sender_email = os.environ.get("SENDER_EMAIL")
-    receiver_email = [os.environ.get("RECEIVER_EMAIL")]
-    cc_email = [os.environ.get("CC_EMAIL")]
-    password = os.environ.get("PWD")
-    sender_name = os.environ.get("SENDER_NAME")
-    receiver_name = os.environ.get("RECEIVER_NAME")
+    sender_email = os.getenv("SENDER_EMAIL")
+    receiver_email = [os.getenv("RECEIVER_EMAIL")]
+    cc_email = [os.getenv("CC_EMAIL")]
+    password = os.getenv("PWD")
+    sender_name = os.getenv("SENDER_NAME")
+    receiver_name = os.getenv("RECEIVER_NAME")
 
     # Create a multipart message and set headers
     msg = MIMEMultipart()

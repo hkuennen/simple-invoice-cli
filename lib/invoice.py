@@ -1,6 +1,7 @@
 import datetime
 import io
 import locale
+import os
 
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.lib.pagesizes import letter
@@ -49,11 +50,12 @@ class Invoice:
         # Create a new PDF
         new_pdf = PdfReader(packet)
         # Read in your template
-        template = PdfReader(open("_input/Rechnung_WTF.pdf", "rb"))
+        template_name = os.getenv("TEMPLATE_NAME")
+        template = PdfReader(open(f"_input/{template_name}.pdf", "rb"))
         output = PdfWriter()
         # Lay the newly created PDF on top of the existing template
-        page = template.get_page(0)
-        page.merge_page(new_pdf.get_page(0))
+        page = template.pages[0]
+        page.merge_page(new_pdf.pages[0])
         output.add_page(page)
         # Finally, write the blob to a real pdf file
         output_stream = open(
