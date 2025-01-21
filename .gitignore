@@ -1,6 +1,4 @@
-# Ignore PDF files, query script for environment variables, hidden files and __pycache__
 *.pdf
-environ.py
 .DS_Store
 .env
 __pycache__/

@@ -1,12 +1,7 @@
-[tool.black]
+[tool.ruff]
+ignore = ["E203", "E501"]
 line-length = 88
-target-version = ['py312']
-include = '\.pyi?$'
-
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-include_trailing_comma = false
-line_length = 88
-multi_line_output = 3
-known_first_party = ["config"]
+select = ["E", "F", "W", "I"]
+fixable = ["E", "F", "I"]
+unfixable = []
+exclude = ["venv"]

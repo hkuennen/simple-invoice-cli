@@ -1,0 +1,13 @@
+{
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.tslint": "always",
+    "source.organizeImports": "explicit"
+  },
+  "files.autoSave": "off"
+}
