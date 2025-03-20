@@ -1,5 +1,7 @@
 *.pdf
 .DS_Store
 .env
+.idea
+.venv
 venv
 __pycache__/

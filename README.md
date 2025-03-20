@@ -1,4 +1,4 @@
-# Simple invoice script
+# Simple Invoice CLI
 
 ## Philosophy
 The idea for this app came to me while helping my dad with his company's billing process.\
